@@ -15,17 +15,14 @@ endif()
 
 # Find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 # Define message files
 set(msg_files
-  "msg/CanMsg.msg"
   "msg/DigitalAndAnalogFeedback.msg"
   "msg/DigitalAndSolenoidCommand.msg"
   "msg/EncoderFeedback.msg"
   "msg/MotorCommand.msg"
-  "msg/MotorArray.msg"
   "msg/PwmCommand.msg"
   "msg/RobomasterCommand.msg"
   "msg/RobomasterCurrentCommand.msg"
@@ -36,29 +33,14 @@ set(msg_files
   "msg/VescStatusTwo.msg"
   "msg/VescStatusThree.msg"
   "msg/VescStatusFour.msg"
-  "msg/YoloDetection.msg"
-  "msg/YoloDetectionArray.msg"
-  "msg/SocketHeartbeat.msg"
-  "msg/DebugMsg.msg"
-  "msg/ComputerToTractorMsg.msg"
-  "msg/TractorToComputerMsg.msg"
-  "msg/BRTFeedback.msg"
   "msg/SwerveCommand.msg"
   "msg/SwerveFeedback.msg"
-  "msg/DamiaoCommand.msg"
   "msg/SmartDriverCommand.msg"
   "msg/SmartDriverPairCommand.msg"
 )
 
-# Generate interfaces
-set(srv_files
-  "srv/ResetOdom.srv"
-)
-
 rosidl_generate_interfaces(${PROJECT_NAME}
   ${msg_files}
-  ${srv_files}
-  DEPENDENCIES builtin_interfaces
 )
 
 # Testing

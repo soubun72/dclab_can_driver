@@ -8,7 +8,7 @@ Two ROS 2 packages that connect a SocketCAN bus to the DCLab boards and to commo
 The node supports:
 
 - DCLab boards: Smart Driver, Sensor, Controller, Swerve module, Absolute Encoder and IMU.
-- Other motor controllers: VESC, DJI RoboMaster C610/C620 and Damiao.
+- Other motor controllers: VESC and DJI RoboMaster C610/C620.
 
 ## Install
 
@@ -53,7 +53,6 @@ Example: `ros2 run can_driver can_driver_node --ros-args -p encoder_ids:="[101, 
 | `/imu/quaternion` | `geometry_msgs/Quaternion` | from the IMU board |
 | `/publish_vesc`, `/vesc_status1..4` | VESC | both |
 | `/publish_robomaster_current`, `/robomaster_feedback` | RoboMaster | both |
-| `/publish_damiao` | Damiao | to the motor |
 
 ## DCLab frame formats (firmware V2)
 
@@ -91,4 +90,7 @@ These formats apply to Smart Driver 2.6, Sensor 2.7 and Absolute Encoder 2.5, an
 - **VESC current and brake modes were sent in µA instead of mA** (×10⁶ instead of ×10³), which is 1000× the requested current. This is fixed. VESC position mode is in degrees, as the VESC firmware expects.
 - A VESC command without a mode is now ignored with a warning. Before, it raised an exception.
 - RoboMaster currents are clamped to the ESC limits, and the ESC temperature is published.
+- Messages unrelated to DCLab boards, VESC and RoboMaster were removed (tractor, YOLO, debug,
+  socket-heartbeat, BRT, raw CAN, motor-array and Damiao messages, and the ResetOdom service),
+  together with the Damiao motor support.
 - Every frame format lives in `can_driver/dclab_frames.py`, which has no ROS dependency. Unit tests: `python3 -m unittest discover -s can_driver/test -p test_frames.py`.

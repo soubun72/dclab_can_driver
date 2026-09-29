@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Example publisher for bench tests: ros2 run can_driver test_can_driver
 --ros-args -p device:=smart_driver (smart_driver, smart_driver_pair,
-controller, swerve, vesc, robomaster, damiao)."""
+controller, swerve, vesc, robomaster)."""
 
 import rclpy
 from rclpy.node import Node
 
-from custom_messages.msg import (DamiaoCommand, DigitalAndSolenoidCommand, PwmCommand,
+from custom_messages.msg import (DigitalAndSolenoidCommand, PwmCommand,
                                  RobomasterCurrentCommand, ServoCommand, SmartDriverCommand,
                                  SmartDriverPairCommand, SwerveCommand, VescCommand)
 
@@ -15,7 +15,6 @@ class TestCanDriver(Node):
     def __init__(self):
         super().__init__("test_can_driver")
         self.device = self.declare_parameter("device", "smart_driver").value
-        self.damiao_armed = False
         self.pub = {
             "smart_driver": self.create_publisher(SmartDriverCommand, "/smart_driver/command", 10),
             "smart_driver_pair": self.create_publisher(SmartDriverPairCommand,
@@ -26,7 +25,6 @@ class TestCanDriver(Node):
             "swerve": self.create_publisher(SwerveCommand, "/publish_swerve", 10),
             "vesc": self.create_publisher(VescCommand, "/publish_vesc", 10),
             "robomaster": self.create_publisher(RobomasterCurrentCommand, "/publish_robomaster_current", 10),
-            "damiao": self.create_publisher(DamiaoCommand, "/publish_damiao", 10),
         }
         self.create_timer(0.01, self.tick)
 
@@ -58,10 +56,6 @@ class TestCanDriver(Node):
     def send_robomaster(self):
         self.pub["robomaster"].publish(RobomasterCurrentCommand(can_id=0x200, current1=0.5, type1=0))
 
-    def send_damiao(self):
-        msg = DamiaoCommand(motor_id=1, speed=2.0, arm=not self.damiao_armed)
-        self.damiao_armed = True
-        self.pub["damiao"].publish(msg)
 
 
 def main(args=None):

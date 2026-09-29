@@ -15,7 +15,7 @@ setup(
     maintainer="DCLab",
     maintainer_email="soubungit@gmail.com",
     description="ROS 2 CAN driver for DCLab boards (Smart Driver, Sensor, Controller, "
-                "Swerve, Absolute Encoder, IMU) and VESC, RoboMaster and Damiao motors.",
+                "Swerve, Absolute Encoder, IMU) and VESC and RoboMaster motors.",
     license="Apache-2.0",
     tests_require=["pytest"],
     entry_points={

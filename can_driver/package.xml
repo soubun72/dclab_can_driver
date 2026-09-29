@@ -2,7 +2,7 @@
 <package format="3">
   <name>can_driver</name>
   <version>2.0.0</version>
-  <description>ROS 2 CAN driver for DCLab boards and VESC, RoboMaster and Damiao motors.</description>
+  <description>ROS 2 CAN driver for DCLab boards and VESC and RoboMaster motors.</description>
   <maintainer email="soubungit@gmail.com">DCLab</maintainer>
   <license>Apache-2.0</license>
 

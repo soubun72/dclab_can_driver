@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ROS 2 node bridging a SocketCAN bus and the DCLab boards (plus VESC,
-RoboMaster and Damiao motors).
+RoboMaster motors).
 
 Each device module registers the CAN IDs it handles; received frames are
 dispatched to them and ROS commands are sent as CAN frames. See README.md
@@ -14,7 +14,6 @@ import rclpy
 from rclpy.node import Node
 
 from .ControllerBoard import ControllerBoard
-from .Damiao import Damiao
 from .DCLabEncoders import DCLabEncoders
 from .DCLabSensorInputs import DCLabSensorInputs
 from .DCLabSmartDriver import DCLabSmartDriver
@@ -46,7 +45,7 @@ class CanDriver(Node, can.Listener):
         self.devices = [
             DCLabSmartDriver(self), DCLabEncoders(self), DCLabSensorInputs(self),
             ControllerBoard(self), SwerveModule(self), IMUBoard(self),
-            Robomaster(self), Vesc(self), Damiao(self),
+            Robomaster(self), Vesc(self),
         ]
         self.open_bus()
         self.create_timer(1.0, self.report_rates)
